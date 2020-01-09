@@ -1,10 +1,13 @@
 // 미완성 
 /**
- * 구현 의도: 1부터 문자열의 총 길이의 절반 개수만큼 나눠 배열에 저장하고, 저장한 요소를 차례대로 중복하는지, 중복하면 개수를 세어나가는 형식으로 진행. 마지막에는 그 개수를 세어 반환하도록 함
+ * 구현 의도: 1부터 문자열의 총 길이의 절반 개수만큼 나눠 배열에 저장하고, 
+ * 저장한 요소를 차례대로 중복하는지, 중복하면 개수를 세어나가는 형식으로 진행. 
+ * 마지막에는 그 개수를 세어 반환하도록 함
  * 
  * 문제점
- * 1. 3번 이상 중복되는 문자열을 다 지우지 못함
- * 2. 중복되는 값을 다 세지 못함
+ * - 기본 테스트케이스는 통과하지만 채점하면 모든 테스트케이스를 통과하지 못함
+ * - 너무 복잡하게 만들었음
+ * - 문제가 뭔지 모르겠음
  */
 
 const solution = s => {
@@ -36,18 +39,20 @@ const makeSplit = (s, count) => {
 
 const countZip = (s, n) => {
     let zip_string_list = makeSplit(s, n);
+    let zip_deduplication = [zip_string_list[0]];
     let zip_count = [];
     let count = 1;
     let answer = 0;
-    console.log(zip_string_list);
+
     for (let i = 0; i < zip_string_list.length - 1; i++) {
         if (zip_string_list[i] === zip_string_list[i + 1]) {
-            zip_string_list.splice(i + 1, 1);
             count++;
+            console.log(`${zip_string_list[i]},,,,${count}`);
         }
         else {
             if (count > 1) zip_count.push(count);
-            count = 0;
+            count = 1;
+            zip_deduplication.push(zip_string_list[i + 1]);
         }
     }
     if (count > 1) zip_count.push(count);
@@ -56,17 +61,16 @@ const countZip = (s, n) => {
         answer = s.length;
     }
     else {
-        let string_length = zip_string_list.reduce((sum, element) => sum += element.length, 0);
-        console.log(string_length);
+        let string_length = zip_deduplication.reduce((sum, element) => sum += element.length, 0);
         answer = string_length + zip_count.length;
     }
-    console.log(zip_count);
-    console.log(zip_string_list);
+    // console.log(zip_count);
+    // console.log(zip_deduplication);
     return answer;
 }
 
-console.log(solution("aabaccc"));
-// console.log(solution("ababcdcdababcdcd"));
-// console.log(solution("abcabcdede"));
-// console.log(solution("abcabcabcabcdededededede"));
-// console.log(solution("xababcdcdababcdcd"));
+console.log(solution("aabbaccc"));
+console.log(solution("ababcdcdababcdcd"));
+console.log(solution("abcabcdede"));
+console.log(solution("abcabcabcabcdededededede"));
+console.log(solution("xababcdcdababcdcd"));
