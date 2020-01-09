@@ -1,13 +1,8 @@
-// 미완성 
+// 완성 
 /**
- * 구현 의도: 1부터 문자열의 총 길이의 절반 개수만큼 나눠 배열에 저장하고, 
- * 저장한 요소를 차례대로 중복하는지, 중복하면 개수를 세어나가는 형식으로 진행. 
- * 마지막에는 그 개수를 세어 반환하도록 함
+ * 참고 : https://dreammarker.tistory.com/67
  * 
- * 문제점
- * - 기본 테스트케이스는 통과하지만 채점하면 모든 테스트케이스를 통과하지 못함
- * - 너무 복잡하게 만들었음
- * - 문제가 뭔지 모르겠음
+ * 설명: https://egg-programmer.tistory.com/125
  */
 
 const solution = s => {
@@ -50,10 +45,6 @@ const countZip = (s, position) => {
     }
 
     return result.length;
-
-
-
-
 }
 
 console.log(solution("aabbaccc"));
