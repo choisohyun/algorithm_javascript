@@ -20,53 +20,40 @@ const solution = s => {
     return min;
 }
 
-const makeSplit = (s, count) => {
+const countZip = (s, position) => {
     let answer = 1;
     let start = 0;
-    let end = count;
-    let zip_string_list = [];
+    let end = position;
+    let count = 1;
+    let result = "";
 
     while (answer <= s.length) {
-        zip_string_list.push(s.slice(start, end));
+        let currWord = s.slice(start, end);
+        let nextWord = s.slice(start + position, end + position);
 
-        answer += count;
-        start += count;
-        end += count;
-    }
+        answer += position;
+        start += position;
+        end += position;
 
-    return zip_string_list;
-}
-
-const countZip = (s, n) => {
-    let zip_string_list = makeSplit(s, n);
-    let zip_deduplication = [zip_string_list[0]];
-    let zip_count = [];
-    let count = 1;
-    let answer = 0;
-
-    for (let i = 0; i < zip_string_list.length - 1; i++) {
-        if (zip_string_list[i] === zip_string_list[i + 1]) {
+        if (currWord === nextWord) {
             count++;
-            console.log(`${zip_string_list[i]},,,,${count}`);
         }
         else {
-            if (count > 1) zip_count.push(count);
+            if (count === 1) {
+                result += currWord;
+            }
+            else {
+                result += count + currWord;
+            }
             count = 1;
-            zip_deduplication.push(zip_string_list[i + 1]);
         }
     }
-    if (count > 1) zip_count.push(count);
 
-    if (zip_count.length === 0) {
-        answer = s.length;
-    }
-    else {
-        let string_length = zip_deduplication.reduce((sum, element) => sum += element.length, 0);
-        answer = string_length + zip_count.length;
-    }
-    // console.log(zip_count);
-    // console.log(zip_deduplication);
-    return answer;
+    return result.length;
+
+
+
+
 }
 
 console.log(solution("aabbaccc"));
